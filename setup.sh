@@ -1,0 +1,1 @@
+export PATH=$ROOT/INSTALL/bin:$PATH
