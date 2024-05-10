@@ -2,6 +2,7 @@
 
 using namespace llvm;
 
+// Function pass
 PreservedAnalyses TestPass::run(Function &F, FunctionAnalysisManager &AM) {
   // Trovo numero di argomenti
   unsigned numArgs = F.arg_size();
@@ -28,4 +29,12 @@ PreservedAnalyses TestPass::run(Function &F, FunctionAnalysisManager &AM) {
          << "N° di istruzioni: " << instrCounter << "\n";
 
   return PreservedAnalyses::all();
+}
+
+// Module pass
+PreservedAnalyses TestPass::run(Module &m, ModuleAnalysisManager &am) {
+  for (const auto &gv : m.globals())
+    errs() << gv.getName() << " è una variabile globale\n";
+  errs() << "N° funzioni: " << std::distance(m.begin(), m.end()) << "\n";
+	return PreservedAnalyses::all();
 }
